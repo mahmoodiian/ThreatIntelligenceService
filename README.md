@@ -13,7 +13,7 @@ This documentation provides an overview of the Threat Intelligence Service, a sm
    - [POST /report-ip](#post-report-ip)
    - [GET /query-ip](#get-query-ip)
 4. [Security Measures](#security-measures)
-   - [Basic Authentication](#basic-authentication)
+   - [JWT Authentication](#Authentication)
 5. [Testing](#testing)
 6. [Future Enhancements](#future-enhancements)
 
@@ -90,19 +90,39 @@ This endpoint takes an IP address and returns its details if present in the data
 
 ## Security Measures
 
-### Basic Authentication
+### Authentication Endpoint
 
-The application implements basic authentication to secure the `/report-ip` and `/query-ip` endpoints. The default credentials are:
+- **POST /token/**: Generate an access token by providing a valid username and password.
 
-- Username: admin
-- Password: admin
+## Authentication
+
+The application uses JWT for token-based authentication. The `login_for_access_token` endpoint handles user authentication and returns a JWT token upon successful login.
+
+### Request Example:
+
+```bash
+curl -X POST "http://127.0.0.1:8000/token/" -d "username=admin&password=admin"
+```
+
+Replace `admin` with your actual username and password.
+
+### Response Example:
+
+```json
+{
+  "access_token": "your_generated_access_token",
+  "token_type": "bearer"
+}
+```
+
+Use the obtained access token for authenticated requests.
 
 ## Testing
 
 The test cases cover basic functionality for both reporting and querying IP addresses. To run the tests:
 
 ```bash
-pytest tests/test_main.py
+pytest
 ```
 
 ## Future Enhancements

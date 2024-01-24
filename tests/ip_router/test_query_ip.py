@@ -1,5 +1,5 @@
 from routers.user_auth import get_new_token
-from tests.test_main import client
+from tests.main import client
 
 
 def test_valid_ip():
